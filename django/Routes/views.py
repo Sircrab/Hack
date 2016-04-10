@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from Routes.models import*
 from utilities import *
+import json
 
 # Placeholder
 def index(request):
@@ -48,5 +49,5 @@ def search(request):
     POI = dic['POI']
     language = dic['language']
 
-    routes = list(ConcreteRoute.objects.filter(route.country=country, language in json.loads(route.guide.languages), (set(POI.keys) & set(route.pointsOfInterest.keys))))
-    return HttpResponse(json.dump(routes))
+    routes = list(ConcreteRoute.objects.filter(route__country=country, language__in=json.loads(route__guide__languages)),POI.keys() in route__pointsOfInterest)
+    return HttpResponse(json.dumps(routes))
